@@ -30,16 +30,16 @@ export default function Khata() {
   if (res.error || !res.data) return <ErrorBox message={res.error ?? "error"} onRetry={res.reload} />;
   return (
     <Section title={t("khataTitle")}>
-      {res.data.length === 0 ? <p className="card p-4 text-center text-gray-600">{t("khataEmpty")}</p> : (
+      {res.data.length === 0 ? <p className="card p-4 text-center text-muted">{t("khataEmpty")}</p> : (
         <ul className="space-y-3">
           {res.data.map((a) => (
             <li key={a.store_id} className="card space-y-2 p-4">
               <button className="flex w-full items-center justify-between text-left" onClick={() => setOpen(open === a.store_id ? null : a.store_id)} aria-expanded={open === a.store_id}>
                 <span>
                   <span className="block text-lg font-bold">{a.store_name}</span>
-                  <span className="text-sm text-gray-600">{t("creditLimit")} {formatMoney(a.credit_limit_paise)}{!a.enabled ? ` · ${t("paused")}` : ""}</span>
+                  <span className="text-sm text-muted">{t("creditLimit")} {formatMoney(a.credit_limit_paise)}{!a.enabled ? ` · ${t("paused")}` : ""}</span>
                 </span>
-                <span className="text-right"><span className="block text-sm text-gray-600">{t("youOwe")}</span><Price paise={a.balance_paise} /></span>
+                <span className="text-right"><span className="block text-sm text-muted">{t("youOwe")}</span><Price paise={a.balance_paise} /></span>
               </button>
               {open === a.store_id && <div><p className="mb-1 font-semibold">{t("history")}</p><Entries storeId={a.store_id} /></div>}
             </li>

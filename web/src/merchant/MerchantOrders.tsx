@@ -52,7 +52,7 @@ function OrderCard({ o, onChanged }: { o: Order; onChanged: () => void }) {
       </div>
       <ul className="text-sm">{o.items.map((i) => <li key={i.store_item_id} className="flex justify-between"><span>{i.name} × {i.quantity}</span><span>{formatMoney(i.unit_price_paise * i.quantity)}</span></li>)}</ul>
       <div className="flex justify-between border-t pt-1"><span>{t("total")}</span><Price paise={o.total_paise} /></div>
-      <p className="text-sm text-gray-600">{o.landmark}</p>
+      <p className="text-sm text-muted">{o.landmark}</p>
       <a className="inline-block text-sm font-semibold text-brand underline" href={`tel:${o.contact_phone}`}>{t("callCustomer")}: {o.contact_phone}</a>
       {o.prescription_ref && <p className="rounded-lg bg-red-50 p-2 text-sm"><b>{t("prescription")}:</b> {o.prescription_ref}</p>}
 
@@ -114,7 +114,7 @@ function Board({ store, stores, pick }: { store: Store; stores: Store[]; pick: (
           <Column title={t("newOrders")} orders={fresh} reload={res.reload} />
           <Column title={t("preparing")} orders={mine.filter((o) => o.status === "ACCEPTED")} reload={res.reload} />
           <Column title={t("readyOrders")} orders={mine.filter((o) => o.status === "READY")} reload={res.reload} />
-          {!mine.some((o) => ["PLACED", "PENDING_PRESCRIPTION_REVIEW", "ACCEPTED", "READY"].includes(o.status)) && <p className="py-8 text-center text-gray-500">{t("noActiveOrders")}</p>}
+          {!mine.some((o) => ["PLACED", "PENDING_PRESCRIPTION_REVIEW", "ACCEPTED", "READY"].includes(o.status)) && <p className="py-8 text-center text-muted">{t("noActiveOrders")}</p>}
         </>
       )}
     </section>

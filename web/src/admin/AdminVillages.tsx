@@ -32,8 +32,8 @@ function VillageCard({ v, onChanged }: { v: Village; onChanged: () => void }) {
   return (
     <li className="card space-y-2 p-3">
       <button className="flex w-full items-start justify-between text-left" onClick={() => setOpen(!open)} aria-expanded={open}>
-        <span><span className="block font-bold">{v.name}</span><span className="text-sm text-gray-600">{[v.district, v.state].filter(Boolean).join(", ")}</span></span>
-        <span className="text-right text-sm"><span className="block">{t("deliveryFeeRs")}: {formatMoney(v.delivery_fee_paise)}</span><span className="text-gray-600">{v.wards.length} {t("wardsWord")}</span></span>
+        <span><span className="block font-bold">{v.name}</span><span className="text-sm text-muted">{[v.district, v.state].filter(Boolean).join(", ")}</span></span>
+        <span className="text-right text-sm"><span className="block">{t("deliveryFeeRs")}: {formatMoney(v.delivery_fee_paise)}</span><span className="text-muted">{v.wards.length} {t("wardsWord")}</span></span>
       </button>
       {open && (
         <div className="space-y-3 border-t pt-2">

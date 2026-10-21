@@ -31,7 +31,7 @@ export default function Cart() {
         <div key={g.storeId} className="card space-y-3 p-3">
           <div className="flex items-center justify-between">
             <Link to={`/shop/${g.storeId}`} className="font-bold text-brand">{g.storeName}</Link>
-            <span className="text-sm text-gray-600">{t("bill")}: <Price paise={g.subtotalPaise} /></span>
+            <span className="text-sm text-muted">{t("bill")}: <Price paise={g.subtotalPaise} /></span>
           </div>
           {g.lines.map((l) => (
             <div key={l.storeItemId} className="flex items-center gap-3">
@@ -44,7 +44,7 @@ export default function Cart() {
       ))}
       <div className="card space-y-1 p-4">
         <div className="flex justify-between"><span>{t("total")}</span><Price paise={subtotal} /></div>
-        {village && <div className="flex justify-between text-sm text-gray-600"><span>{t("deliveryFee")}</span><span>{formatMoney(fee)}</span></div>}
+        {village && <div className="flex justify-between text-sm text-muted"><span>{t("deliveryFee")}</span><span>{formatMoney(fee)}</span></div>}
         <div className="flex justify-between border-t pt-2 text-lg"><span className="font-bold">{t("grandTotal")}</span><Price paise={subtotal + fee} /></div>
       </div>
       {belowMin && <p role="alert" className="text-sm font-semibold text-red-700">{t("minOrder")}: {formatMoney(min)}</p>}

@@ -73,8 +73,8 @@ function CatalogAdder({ store, listedIds, onAdded }: { store: Store; listedIds: 
             return (
               <li key={c.id} className="card flex items-center gap-2 p-2">
                 <ItemImage path={c.image_path} alt={name} size={44} />
-                <div className="min-w-0 flex-1"><p className="font-semibold leading-tight">{name}</p>{c.pack_sizes && <p className="truncate text-xs text-gray-500">{c.pack_sizes}</p>}</div>
-                {listed ? <span className="text-sm text-gray-500">{t("listed")}</span> : (
+                <div className="min-w-0 flex-1"><p className="font-semibold leading-tight">{name}</p>{c.pack_sizes && <p className="truncate text-xs text-muted">{c.pack_sizes}</p>}</div>
+                {listed ? <span className="text-sm text-muted">{t("listed")}</span> : (
                   <>
                     <input className="input !w-24" inputMode="decimal" placeholder="₹" aria-label={t("price")} value={prices[c.id] ?? ""} onChange={(e) => setPrices((p) => ({ ...p, [c.id]: e.target.value }))} />
                     <button className="btn btn-primary !px-3" onClick={() => void add(c)}>{t("add2")}</button>
@@ -131,7 +131,7 @@ function ItemsBody({ store, stores, pick }: { store: Store; stores: Store[]; pic
       </div>
       {panel === "catalog" && <CatalogAdder store={store} listedIds={listed} onAdded={items.reload} />}
       {panel === "custom" && <CustomAdder storeId={store.id} onAdded={items.reload} />}
-      {items.data.length === 0 ? <p className="py-6 text-center text-gray-500">{t("noItems")}</p> : (
+      {items.data.length === 0 ? <p className="py-6 text-center text-muted">{t("noItems")}</p> : (
         <ul className="space-y-2">{items.data.map((i) => <ItemRow key={`${i.id}-${i.price_paise}-${i.available}`} storeId={store.id} item={i} onSaved={items.reload} />)}</ul>
       )}
     </section>

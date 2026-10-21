@@ -32,8 +32,8 @@ function ShopCard({ s, onChanged }: { s: AdminStore; onChanged: () => void }) {
       <button className="flex w-full items-start justify-between gap-2 text-left" onClick={() => setOpen(!open)} aria-expanded={open}>
         <span>
           <span className="block font-bold">{s.name}</span>
-          <span className="text-sm text-gray-600">{s.store_type_name} · {s.village_name}</span>
-          <span className="block text-sm text-gray-600">{s.owner_phone ?? "—"} · {t("commissionPct")} {bpsToPercent(s.effective_commission_bps)}{s.commission_bps === null ? "" : " *"}</span>
+          <span className="text-sm text-muted">{s.store_type_name} · {s.village_name}</span>
+          <span className="block text-sm text-muted">{s.owner_phone ?? "—"} · {t("commissionPct")} {bpsToPercent(s.effective_commission_bps)}{s.commission_bps === null ? "" : " *"}</span>
         </span>
         {!s.active && <StatusChip text={t("disabled")} tone="red" />}
       </button>
@@ -41,7 +41,7 @@ function ShopCard({ s, onChanged }: { s: AdminStore; onChanged: () => void }) {
         <div className="space-y-2 border-t pt-2">
           <label className="block space-y-1"><span className="text-sm font-semibold">{t("commissionPct")}</span>
             <input className="input" inputMode="decimal" placeholder={bpsToPercent(s.effective_commission_bps)} value={rate} onChange={(e) => setRate(e.target.value)} />
-            <span className="text-xs text-gray-600">{t("useTypeRate")}</span></label>
+            <span className="text-xs text-muted">{t("useTypeRate")}</span></label>
           <input className="input" inputMode="numeric" maxLength={10} placeholder={t("phone")} value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))} />
           <input className="input" placeholder={t("fssai")} value={fssai} onChange={(e) => setFssai(e.target.value)} />
           <input className="input" placeholder={t("drugLicence")} value={licence} onChange={(e) => setLicence(e.target.value)} />
@@ -117,7 +117,7 @@ export default function AdminShops() {
     <Section title={t("adminShops")}>
       <button className={`btn w-full ${adding ? "btn-primary" : "btn-ghost"}`} onClick={() => setAdding(!adding)}>{t("addShop")}</button>
       {adding && <AddShop onDone={res.reload} />}
-      {res.loading ? <Spinner /> : res.error || !res.data ? <ErrorBox message={res.error ?? "error"} onRetry={res.reload} /> : res.data.length === 0 ? <p className="py-6 text-center text-gray-500">{t("noShopsAdmin")}</p> : (
+      {res.loading ? <Spinner /> : res.error || !res.data ? <ErrorBox message={res.error ?? "error"} onRetry={res.reload} /> : res.data.length === 0 ? <p className="py-6 text-center text-muted">{t("noShopsAdmin")}</p> : (
         <ul className="space-y-2">{res.data.map((s) => <ShopCard key={s.id} s={s} onChanged={res.reload} />)}</ul>
       )}
     </Section>

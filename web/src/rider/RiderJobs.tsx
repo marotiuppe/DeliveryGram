@@ -27,10 +27,10 @@ export function JobCard({ d }: { d: Delivery }) {
     <Link to={`/rider/${d.id}`} className="card block space-y-1 p-3">
       <div className="flex items-center justify-between">
         <span className="font-bold">{t("tripWord")} #{d.id}</span>
-        {d.cash_to_collect_paise > 0 ? <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-900">{formatMoney(d.cash_to_collect_paise)}</span> : null}
+        {d.cash_to_collect_paise > 0 ? <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-amber-900">{formatMoney(d.cash_to_collect_paise)}</span> : null}
       </div>
-      <p className="text-sm text-gray-700">{t("collectFrom")}: {live.map((o) => o.store_name).join(", ")}</p>
-      <p className="text-sm text-gray-700">{t("deliverTo")}: {d.ward_number ? `${t("ward")} ${d.ward_number}, ` : ""}{d.landmark}</p>
+      <p className="text-sm text-muted">🏪 {t("collectFrom")}: {live.map((o) => o.store_name).join(", ")}</p>
+      <p className="text-sm text-muted">📍 {t("deliverTo")}: {d.ward_number ? `${t("ward")} ${d.ward_number}, ` : ""}{d.landmark}</p>
     </Link>
   );
 }
@@ -60,10 +60,10 @@ export default function RiderJobs() {
   );
   return (
     <Section title={t("riderJobs")}>
-      <div className="card flex items-center justify-between p-4"><span className="font-semibold">{t("cashWithMe")}</span><Price paise={cash} /></div>
+      <div className="card flex items-center justify-between border-amber-300 bg-amber-50 p-4 text-lg"><span className="font-bold">💰 {t("cashWithMe")}</span><Price paise={cash} /></div>
       {group(t("myTrips"), onTheWay)}
       {group(t("readyForPickup"), ready)}
-      {ready.length === 0 && onTheWay.length === 0 && <p className="py-6 text-center text-gray-500">{t("noJobs")}</p>}
+      {ready.length === 0 && onTheWay.length === 0 && <p className="card py-8 text-center text-muted"><span aria-hidden className="block text-4xl">🛵</span>{t("noJobs")}</p>}
       {group(t("doneToday"), done)}
     </Section>
   );

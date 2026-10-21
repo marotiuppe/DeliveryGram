@@ -27,7 +27,7 @@ function PersonRow({ p, isMe, onChanged }: { p: Person; isMe: boolean; onChanged
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <p className="font-bold">{p.name ?? p.phone ?? p.email}</p>
-          <p className="text-sm text-gray-600">{[p.phone, p.email].filter(Boolean).join(" · ")}</p>
+          <p className="text-sm text-muted">{[p.phone, p.email].filter(Boolean).join(" · ")}</p>
         </div>
         <span className="flex flex-col items-end gap-1">
           <StatusChip text={t(roleKey(p.role))} tone="gray" />
@@ -103,7 +103,7 @@ export default function AdminPeople() {
         ))}
       </div>
       <input className="input" type="search" placeholder={t("search2")} value={q} onChange={(e) => setQ(e.target.value)} />
-      {res.loading ? <Spinner /> : res.error || !res.data ? <ErrorBox message={res.error ?? "error"} onRetry={res.reload} /> : res.data.length === 0 ? <p className="py-6 text-center text-gray-500">{t("noPeople")}</p> : (
+      {res.loading ? <Spinner /> : res.error || !res.data ? <ErrorBox message={res.error ?? "error"} onRetry={res.reload} /> : res.data.length === 0 ? <p className="py-6 text-center text-muted">{t("noPeople")}</p> : (
         <ul className="space-y-2">{res.data.map((p) => <PersonRow key={p.id} p={p} isMe={p.id === me?.id} onChanged={res.reload} />)}</ul>
       )}
     </Section>

@@ -58,7 +58,7 @@ export function RegisterVillager() {
           <p>{t("phone")}: <b>{done.phone}</b></p>
           <p className="text-sm">{t("tempPin")}</p>
           <p className="text-5xl font-extrabold tracking-[0.3em] text-brand">{done.pin}</p>
-          <p className="text-sm text-gray-600">{t("tellVillager")}</p>
+          <p className="text-sm text-muted">{t("tellVillager")}</p>
         </div>
         <button className="btn btn-primary w-full" onClick={() => { setDone(null); setPhone(""); setName(""); setPin(suggestPin()); }}>{t("registerAnother")}</button>
       </Section>

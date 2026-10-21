@@ -22,8 +22,8 @@ export default function Search() {
   return (
     <Section title={t("search")}>
       <input className="input" type="search" autoFocus placeholder={t("searchPlaceholder")} value={text} onChange={(e) => setText(e.target.value)} />
-      {!path ? <p className="text-gray-500">{t("searchHint")}</p> : res.loading ? <Spinner /> : res.error ? <ErrorBox message={res.error} onRetry={res.reload} /> : (res.data ?? []).length === 0 ? (
-        <p className="py-6 text-center text-gray-500">{t("noResults")}</p>
+      {!path ? <p className="text-muted">{t("searchHint")}</p> : res.loading ? <Spinner /> : res.error ? <ErrorBox message={res.error} onRetry={res.reload} /> : (res.data ?? []).length === 0 ? (
+        <p className="py-6 text-center text-muted">{t("noResults")}</p>
       ) : (
         <ul className="space-y-3">
           {(res.data ?? []).map((h, idx) => {
@@ -34,7 +34,7 @@ export default function Search() {
                 <ItemImage path={h.image_path} alt={name} />
                 <div className="min-w-0 flex-1">
                   <p className="font-semibold leading-tight">{name}</p>
-                  <p className="text-sm text-gray-600">{t("fromShop")} {h.store_name}</p>
+                  <p className="text-sm text-muted">{t("fromShop")} {h.store_name}</p>
                   <p><Price paise={h.price_paise} /> {idx === 0 && (res.data ?? []).length > 1 && <span className="ml-1 rounded bg-green-100 px-2 text-xs font-bold text-green-800">{t("cheapest")}</span>}</p>
                   {h.requires_prescription && <p className="text-xs text-red-700">{t("rxBlocked")}</p>}
                 </div>

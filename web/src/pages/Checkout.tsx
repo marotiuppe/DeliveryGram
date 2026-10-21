@@ -127,8 +127,8 @@ export default function Checkout() {
                   <span>{label}</span>
                 </label>
               ))}
-              {fulOf(g.storeId) === "pickup" && <p className="text-sm text-gray-600">{t("pickupNote")}</p>}
-              <p className="pt-1 text-sm text-gray-600">{t("payHow")}</p>
+              {fulOf(g.storeId) === "pickup" && <p className="text-sm text-muted">{t("pickupNote")}</p>}
+              <p className="pt-1 text-sm text-muted">{t("payHow")}</p>
               {options.map(([val, label]) => (
                 <label key={val} className="flex min-h-12 items-center gap-3 rounded-xl border border-gray-300 px-3">
                   <input type="radio" name={`pay-${g.storeId}`} checked={method(g.storeId) === val} onChange={() => setPay((p) => ({ ...p, [g.storeId]: val }))} className="h-5 w-5" />
@@ -141,7 +141,7 @@ export default function Checkout() {
 
         <div className="card space-y-1 p-4">
           <div className="flex justify-between"><span>{t("total")}</span><Price paise={subtotal} /></div>
-          {anyDelivery && <div className="flex justify-between text-sm text-gray-600"><span>{t("deliveryFee")}</span><span>{formatMoney(fee)}</span></div>}
+          {anyDelivery && <div className="flex justify-between text-sm text-muted"><span>{t("deliveryFee")}</span><span>{formatMoney(fee)}</span></div>}
           <div className="flex justify-between border-t pt-2 text-lg"><span className="font-bold">{t("grandTotal")}</span><Price paise={subtotal + fee} /></div>
         </div>
         {error && <p role="alert" className="rounded-xl bg-red-50 p-3 font-semibold text-red-700">{error}</p>}

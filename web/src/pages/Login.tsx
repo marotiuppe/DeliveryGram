@@ -39,7 +39,7 @@ export default function Login() {
   const verify = (e: FormEvent) => { e.preventDefault(); void run(async () => finish(await api<TokenOut>("/auth/otp/verify", { method: "POST", body: { email, code } }))); };
 
   const tab = (m: "pin" | "email", label: string) => (
-    <button type="button" onClick={() => { setMode(m); setError(null); }} className={`flex-1 rounded-xl px-3 py-3 font-semibold ${mode === m ? "bg-brand text-white" : "bg-white border border-gray-300"}`}>{label}</button>
+    <button type="button" onClick={() => { setMode(m); setError(null); }} className={`flex-1 rounded-xl px-3 py-3 font-bold ${mode === m ? "bg-brand text-white shadow" : "border border-gray-300 bg-white"}`}>{label}</button>
   );
 
   return (
@@ -52,7 +52,7 @@ export default function Login() {
           <label className="block space-y-1"><span className="font-semibold">{t("pin")}</span>
             <input className="input" type="password" inputMode="numeric" pattern="[0-9]{4,6}" maxLength={6} required value={pin} onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))} autoComplete="current-password" /></label>
           <button className="btn btn-primary w-full" disabled={busy}>{t("login")}</button>
-          <p className="text-sm text-gray-600">{t("pinHelp")}</p>
+          <p className="text-sm text-muted">{t("pinHelp")}</p>
         </form>
       ) : !sent ? (
         <form onSubmit={sendCode} className="space-y-3">

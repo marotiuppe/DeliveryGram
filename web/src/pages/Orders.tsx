@@ -15,14 +15,14 @@ export function OrdersList({ base = "/orders", showPhone = false }: { base?: str
   if (res.error || !res.data) return <ErrorBox message={res.error ?? "error"} onRetry={res.reload} />;
   return (
     <Section title={t("myOrders")}>
-      {res.data.length === 0 ? <p className="py-8 text-center text-gray-500">{t("noOrders")}</p> : (
+      {res.data.length === 0 ? <p className="card py-8 text-center text-muted"><span aria-hidden className="block text-4xl">📦</span>{t("noOrders")}</p> : (
         <ul className="space-y-3">
           {res.data.map((d) => (
             <li key={d.id}>
               <Link to={`${base}/${d.id}`} className="card block space-y-2 p-4">
                 <div className="flex items-center justify-between"><span className="font-bold">#{d.id}</span><StatusChip text={t(`status${d.status}` as Key)} tone={deliveryTone(d.status)} /></div>
                 {showPhone && <p className="text-sm font-semibold">{d.contact_phone}</p>}
-                <p className="text-sm text-gray-600">{d.orders.map((o) => o.items.map((i) => i.name).join(", ")).join(" · ")}</p>
+                <p className="truncate text-sm text-muted">{d.orders.map((o) => o.items.map((i) => i.name).join(", ")).join(" · ")}</p>
                 <Price paise={d.grand_total_paise} />
               </Link>
             </li>
@@ -57,17 +57,17 @@ export function DeliveryDetail() {
       <div className="flex items-center justify-between"><span>{t("status")}</span><StatusChip text={t(`status${d.status}` as Key)} tone={deliveryTone(d.status)} /></div>
 
       {d.delivery_code && active && (
-        <div className="card space-y-1 border-2 border-brand p-4 text-center">
+        <div className="card space-y-1 border-2 border-brand bg-brand-soft p-4 text-center">
           <p className="font-semibold">{t("deliveryCode")}</p>
-          <p className="text-5xl font-extrabold tracking-[0.3em] text-brand" aria-label={d.delivery_code.split("").join(" ")}>{d.delivery_code}</p>
-          <p className="text-sm text-gray-600">{me?.role === "agent" ? `${t("tellCode")} (${d.contact_phone})` : t("deliveryCodeHelp")}</p>
+          <p className="text-5xl font-extrabold tracking-[0.3em] text-brand-dark" aria-label={d.delivery_code.split("").join(" ")}>{d.delivery_code}</p>
+          <p className="text-sm text-muted">{me?.role === "agent" ? `${t("tellCode")} (${d.contact_phone})` : t("deliveryCodeHelp")}</p>
         </div>
       )}
 
       {d.orders.map((o) => (
         <div key={o.id} className="card space-y-2 p-3">
           <div className="flex items-center justify-between">
-            <p className="font-bold text-brand">{shopName(o.store_id)} <span className="text-sm font-normal text-gray-500">{t("bill")} #{o.id}</span></p>
+            <p className="font-bold text-brand">{shopName(o.store_id)} <span className="text-sm font-normal text-muted">{t("bill")} #{o.id}</span></p>
             <StatusChip text={t(`order${o.status}` as Key)} tone={o.status === "DELIVERED" ? "green" : ["REJECTED", "CANCELLED", "FAILED"].includes(o.status) ? "red" : "amber"} />
           </div>
           {o.fulfillment === "pickup" && !["REJECTED", "CANCELLED", "DELIVERED"].includes(o.status) && (

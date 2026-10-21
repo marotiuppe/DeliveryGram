@@ -24,8 +24,8 @@ export default function Shop() {
   return (
     <section className="space-y-4">
       <div>
-        <h1 className="text-xl font-bold">{s.name}</h1>
-        {s.phone && <a href={`tel:${s.phone}`} className="text-sm font-semibold text-brand underline">{t("call")} {s.phone}</a>}
+        <h1 className="text-2xl font-extrabold">{s.name}</h1>
+        {s.phone && <a href={`tel:${s.phone}`} className="inline-flex min-h-10 items-center text-sm font-bold text-brand underline">📞 {t("call")} {s.phone}</a>}
         {!s.is_open && <p className="mt-1 font-semibold text-red-700">{t("closed")}</p>}
       </div>
       <input className="input" type="search" placeholder={t("searchPlaceholder")} value={q} onChange={(e) => setQ(e.target.value)} />
@@ -46,7 +46,7 @@ export default function Shop() {
                 inCart ? <Stepper qty={inCart.qty} onChange={(n) => setQty(i.id, n)} /> : (
                   <button className="btn btn-primary" onClick={() => addToCart({ storeItemId: i.id, storeId: s.id, storeName: s.name, name: i.name, nameHi: i.name_hi, pricePaise: i.price_paise, imagePath: i.image_path })}>{t("add")}</button>
                 )
-              ) : !blocked ? <span className="text-sm text-gray-500">{t("closed")}</span> : null}
+              ) : !blocked ? <span className="text-sm text-muted">{t("closed")}</span> : null}
             </li>
           );
         })}

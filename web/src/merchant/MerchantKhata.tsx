@@ -48,10 +48,10 @@ function AccountCard({ a, store, onChanged }: { a: KhataAccount; store: Store; o
       <div className="flex items-start justify-between gap-2">
         <div>
           <p className="text-lg font-bold">{a.customer_name ?? a.customer_phone}</p>
-          {a.customer_name && <p className="text-sm text-gray-600">{a.customer_phone}</p>}
-          <p className="text-xs text-gray-500">{t("creditLimit")} {formatMoney(a.credit_limit_paise)}{!a.enabled ? ` · ${t("paused")}` : ""}</p>
+          {a.customer_name && <p className="text-sm text-muted">{a.customer_phone}</p>}
+          <p className="text-xs text-muted">{t("creditLimit")} {formatMoney(a.credit_limit_paise)}{!a.enabled ? ` · ${t("paused")}` : ""}</p>
         </div>
-        <div className="text-right"><p className="text-sm text-gray-600">{t("dues")}</p><Price paise={a.balance_paise} /></div>
+        <div className="text-right"><p className="text-sm text-muted">{t("dues")}</p><Price paise={a.balance_paise} /></div>
       </div>
 
       {a.balance_paise > 0 && a.customer_phone && (
@@ -117,7 +117,7 @@ function KhataBody({ store, stores, pick }: { store: Store; stores: Store[]; pic
       <StorePicker stores={stores} store={store} onPick={pick} />
       <div className="card flex items-center justify-between p-4"><span className="font-semibold">{t("totalDues")}</span><Price paise={total} /></div>
       <GiveKhata storeId={store.id} onDone={res.reload} />
-      {res.data.length === 0 ? <p className="py-4 text-center text-gray-500">{t("noKhataCustomers")}</p> : (
+      {res.data.length === 0 ? <p className="py-4 text-center text-muted">{t("noKhataCustomers")}</p> : (
         <ul className="space-y-3">{res.data.map((a) => <AccountCard key={`${a.customer_id}-${a.balance_paise}`} a={a} store={store} onChanged={res.reload} />)}</ul>
       )}
     </section>

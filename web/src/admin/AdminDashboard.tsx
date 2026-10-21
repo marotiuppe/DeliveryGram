@@ -7,9 +7,9 @@ import { useFetch } from "../useFetch";
 
 function Stat({ label, value, big }: { label: string; value: string | number; big?: boolean }) {
   return (
-    <div className="card p-3">
-      <p className="text-sm text-gray-600">{label}</p>
-      <p className={`font-extrabold ${big ? "text-2xl" : "text-xl"}`}>{value}</p>
+    <div className={`card p-3 ${big ? "border-l-4 border-l-brand" : ""}`}>
+      <p className="text-sm text-muted">{label}</p>
+      <p className={`font-extrabold ${big ? "text-2xl text-brand-dark" : "text-xl"}`}>{value}</p>
     </div>
   );
 }
@@ -52,8 +52,8 @@ export default function AdminDashboard() {
       <h2 className="pt-2 text-lg font-bold">{t("recentOrders")}</h2>
       {orders.data?.slice(0, 10).map((o) => (
         <div key={o.id} className="card flex items-center justify-between gap-2 p-3">
-          <div className="min-w-0"><p className="font-semibold">#{o.id} · {o.store_name}</p><p className="truncate text-sm text-gray-600">{o.items.map((i) => i.name).join(", ")}</p></div>
-          <div className="text-right"><Price paise={o.total_paise} /><p className="text-xs text-gray-600">{t(`order${o.status}` as Key)}</p></div>
+          <div className="min-w-0"><p className="font-semibold">#{o.id} · {o.store_name}</p><p className="truncate text-sm text-muted">{o.items.map((i) => i.name).join(", ")}</p></div>
+          <div className="text-right"><Price paise={o.total_paise} /><p className="text-xs text-muted">{t(`order${o.status}` as Key)}</p></div>
         </div>
       ))}
     </Section>

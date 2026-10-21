@@ -45,10 +45,10 @@ export default function RiderTrip() {
               {o.store_phone && <a className="text-sm font-semibold text-brand underline" href={`tel:${o.store_phone}`}>{t("callShop")}</a>}
             </div>
             <ul className="text-sm">{o.items.map((i) => <li key={i.store_item_id}>{i.name} × {i.quantity}</li>)}</ul>
-            <p className="text-xs text-gray-600">{t("bill")} #{o.id} · {formatMoney(o.total_paise)}{o.payment_method === "khata" ? ` · ${t("onKhata")}` : o.payment_method === "upi" ? " · UPI" : ""}</p>
+            <p className="text-xs text-muted">{t("bill")} #{o.id} · {formatMoney(o.total_paise)}{o.payment_method === "khata" ? ` · ${t("onKhata")}` : o.payment_method === "upi" ? " · UPI" : ""}</p>
           </div>
         ))}
-        {pickupOnly.length > 0 && <p className="text-xs text-gray-500">{pickupOnly.map((o) => o.store_name).join(", ")}: {t("payAtShop")}</p>}
+        {pickupOnly.length > 0 && <p className="text-xs text-muted">{pickupOnly.map((o) => o.store_name).join(", ")}: {t("payAtShop")}</p>}
       </div>
 
       <div className="card space-y-1 p-3">
@@ -61,7 +61,7 @@ export default function RiderTrip() {
 
       <div className="card border-2 border-amber-300 p-4 text-center">
         <p className="font-semibold">{t("collectCash")}</p>
-        {d.cash_to_collect_paise > 0 ? <p className="text-4xl font-extrabold"><Price paise={d.cash_to_collect_paise} /></p> : <p className="text-sm text-gray-600">{t("noCashBills")}</p>}
+        {d.cash_to_collect_paise > 0 ? <p className="text-4xl font-extrabold"><Price paise={d.cash_to_collect_paise} /></p> : <p className="text-sm text-muted">{t("noCashBills")}</p>}
       </div>
 
       {error && <p role="alert" className="rounded-xl bg-red-50 p-3 font-semibold text-red-700">{error}</p>}
@@ -73,7 +73,7 @@ export default function RiderTrip() {
           {needsCode && (
             <label className="block space-y-1"><span className="font-semibold">{t("enterCode")}</span>
               <input className="input text-center text-3xl tracking-[0.5em]" inputMode="numeric" maxLength={4} value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))} />
-              <span className="text-sm text-gray-600">{t("codeNeeded")}</span></label>
+              <span className="text-sm text-muted">{t("codeNeeded")}</span></label>
           )}
           <button className="btn btn-primary w-full" disabled={busy || (needsCode && code.length !== 4)} onClick={() => void act("complete", { delivery_code: needsCode ? code : null })}>{t("delivered")}</button>
           {!confirmFail ? (
