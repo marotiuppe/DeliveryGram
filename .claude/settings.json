@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(flutter analyze*)",
+      "Bash(flutter test*)",
+      "Bash(php artisan test*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./**/.env)"
+    ]
+  }
+}

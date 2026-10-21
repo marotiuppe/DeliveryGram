@@ -1,0 +1,45 @@
+# Render Blueprint. Secrets are NEVER in this file: every `sync: false` value is typed into the Render dashboard.
+# Setup steps and free-plan limits: docs/DEPLOY_RENDER.md
+services:
+  - type: web
+    name: deliverygram-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    # Migrations and the idempotent catalog seed run at start (pre-deploy commands are not available on free plans).
+    startCommand: cd backend && alembic upgrade head && python -m app.seed && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false # Neon (non-expiring free Postgres) connection string. Render's own free Postgres expires after 30 days.
+      - key: ADMIN_EMAIL
+        sync: false # first admin: logs in with an emailed code
+      - key: BREVO_API_KEY
+        sync: false # HTTP email API; Render's free plan blocks SMTP
+      - key: MAIL_FROM
+        sync: false # sender verified in Brevo, e.g. DeliveryGram <you@yourdomain.com>
+      - key: ALLOWED_ORIGINS
+        sync: false # the web app's URL, e.g. https://deliverygram-web.onrender.com
+      - key: KEEPALIVE_SECONDS
+        value: 300 # the API calls its own public /health every 5 minutes (RENDER_EXTERNAL_URL is set by Render). 0 = off.
+
+  - type: web
+    name: deliverygram-web
+    runtime: static
+    buildCommand: cd web && npm ci && npm run build
+    staticPublishPath: web/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: VITE_API_URL
+        sync: false # the API origin, e.g. https://deliverygram-api.onrender.com (no trailing slash)

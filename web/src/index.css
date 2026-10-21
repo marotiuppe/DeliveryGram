@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #15803d;
+  --color-brand-dark: #166534;
+  --color-brand-soft: #dcfce7;
+  --color-ink: #1c2420;
+  --color-paper: #f7faf7;
+}
+
+html, body, #root { min-height: 100%; }
+body { background: var(--color-paper); color: var(--color-ink); font-family: system-ui, "Noto Sans Devanagari", "Segoe UI", sans-serif; -webkit-tap-highlight-color: transparent; }
+
+/* Large touch targets for low-end phones and first-time smartphone users. */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 3rem; padding: .5rem 1.1rem; border-radius: .75rem; font-weight: 600; font-size: 1rem; }
+.btn-primary { background: var(--color-brand); color: white; }
+.btn-primary:active { background: var(--color-brand-dark); }
+.btn-primary:disabled { background: #9ca3af; }
+.btn-ghost { background: white; border: 1.5px solid #cbd5cf; color: var(--color-ink); }
+.input { width: 100%; min-height: 3rem; padding: .5rem .8rem; border: 1.5px solid #cbd5cf; border-radius: .75rem; background: white; font-size: 1rem; }
+.input:focus { outline: 2px solid var(--color-brand); border-color: var(--color-brand); }
+.card { background: white; border: 1px solid #e3ebe5; border-radius: 1rem; }
